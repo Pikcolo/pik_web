@@ -35,7 +35,7 @@ def Home():
 @app.route('/register',methods=['GET','POST'])
 def register():
     if request.method == 'POST':
-        # handle request
+        
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
@@ -57,16 +57,24 @@ def login():
 
         if user and user.check_password(password):
             session['email'] = user.email
-            return redirect('/')
+            return redirect(url_for('Home'))
         else:
-            return render_template('login.html', error='Invalid user')
+            return render_template('user/login.html', error='Invalid user')
 
     return render_template('user/login.html')
+
+@app.route('/dashboard')
+def dashboard():
+    if 'email' in session:  
+        user = User.query.filter_by(email=session['email']).first()
+        return render_template('user/dashboard.html', user=user)  
+    else:
+        return redirect(url_for('login')) 
 
 @app.route('/logout')
 def logout():
     session.pop('email',None)
-    return redirect('/login')
+    return redirect(url_for('Home'))
 
 @app.route("/About")
 def About():
