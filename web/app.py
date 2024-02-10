@@ -36,7 +36,11 @@ def register():
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
-
+        confirm_password = request.form['confirm_password']
+        
+        if password != confirm_password:
+            return render_template('user/register.html', error='Passwords do not match')
+        
         new_user = User(name=name,email=email,password=password)
         db.session.add(new_user)
         db.session.commit()
@@ -81,4 +85,3 @@ def About():
 if __name__ == "__main__":
     db.create_all()
     app.run(debug=True)
-
