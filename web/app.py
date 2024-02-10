@@ -1,8 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_sqlalchemy import SQLAlchemy
-import bcrypt
-
-from flask import Flask, request,render_template, redirect,session
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 
@@ -81,6 +77,10 @@ def logout():
 def About():
     services =['ให้อาหารปลา', 'ทำความสะอาดบ้าน', 'รับจ้างฟาร์มเลเวลในเกม' ,'สอนการบ้าน', 'ขับรถรับ-ส่ง' , 'รับจ้างพาไปต่างโลก']
     return render_template("about.html", my_services = services )
+
+@app.route("/Features")
+def Features():
+    return render_template("features.html")
 
 if __name__ == "__main__":
     db.create_all()
