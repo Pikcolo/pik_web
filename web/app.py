@@ -82,6 +82,10 @@ def About():
 def Features():
     return render_template("features.html")
 
+@app.route("/Admin")
+def Admin():
+    return render_template("admin.html")
+
 if __name__ == "__main__":
     db.create_all()
     app.run(debug=True)
