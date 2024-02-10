@@ -25,9 +25,6 @@ class User(db.Model):
     def check_password(self,password):
         return bcrypt.checkpw(password.encode('utf-8'),self.password.encode('utf-8'))
 
-with app.app_context():
-    db.create_all()
-
 @app.route('/')
 def Home():
     return render_template('index.html')
@@ -59,7 +56,7 @@ def login():
             session['email'] = user.email
             return redirect(url_for('Home'))
         else:
-            return render_template('user/login.html', error='Invalid user')
+            return render_template('user/login.html', error='Invalid Email or Password')
 
     return render_template('user/login.html')
 
@@ -82,5 +79,6 @@ def About():
     return render_template("about.html", my_services = services )
 
 if __name__ == "__main__":
+    db.create_all()
     app.run(debug=True)
 
