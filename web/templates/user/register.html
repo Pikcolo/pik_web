@@ -15,22 +15,34 @@
     <div class=" row justify-content-center">
         <div class="col-sm-6 mt-4">
             <h2>Register</h2>
+            
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+
             <form action="/register" method="POST">
                 <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
                 </div>
                 
                 <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
                 </div>
-
+                
                 <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
                 </div>
-
+                
+                <div class="form-group">
+                    <label for="confirm_pwd">Confirm Password:</label>
+                    <input type="password" class="form-control" id="confirm_pwd" placeholder="Confirm password" name="confirm_password">
+                </div>
+                
                 <button type="submit" class="btn btn-dark">Submit</button>
                 <a href="/login" class="btn btn-primary">Login</a>
             </form>
