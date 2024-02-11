@@ -90,6 +90,10 @@ def About():
 def Features():
     return render_template("features.html")
 
+@app.route("/Features/Fish")
+def Fish():
+    return render_template("fish.html")
+
 @app.route("/Admin")
 def Admin():
     return render_template("admin.html")
