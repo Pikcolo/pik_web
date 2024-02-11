@@ -1,5 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Email, EqualTo
+from flask_wtf import CSRFProtect
+from forms import RegistrationForm, LoginForm
 import bcrypt
 
 app = Flask(__name__)
@@ -27,28 +32,30 @@ def Home():
 
 @app.route('/register',methods=['GET','POST'])
 def register():
-    if request.method == 'POST':
-        
-        name = request.form['name']
-        email = request.form['email']
-        password = request.form['password']
-        confirm_password = request.form['confirm_password']
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        email = form.email.data
+        password = form.password.data
+        confirm_password = form.confirm_password.data
         
         if password != confirm_password:
-            return render_template('user/register.html', error='Passwords do not match')
+            return redirect(url_for('register'), error='Passwords do not match')
         
         new_user = User(name=name,email=email,password=password)
         db.session.add(new_user)
         db.session.commit()
-        return redirect('/login')
+        flash('Account created successfully! You can now login', 'success')
+        return redirect(url_for('login'))
 
-    return render_template('user/register.html')
+    return render_template('user/register.html', form=form, error='Passwords do not match')
 
 @app.route('/login',methods=['GET','POST'])
 def login():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
+    form = LoginForm()
+    if form.validate_on_submit():
+        email = form.email.data
+        password = form.password.data
 
         user = User.query.filter_by(email=email).first()
 
@@ -56,9 +63,9 @@ def login():
             session['email'] = user.email
             return redirect(url_for('Home'))
         else:
-            return render_template('user/login.html', error='Invalid Email or Password')
+            flash('Invalid Email or Password', 'danger')
 
-    return render_template('user/login.html')
+    return render_template('user/login.html', form=form, error='Invalid Email or Password')
 
 @app.route('/dashboard')
 def dashboard():
