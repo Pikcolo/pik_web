@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Email, EqualTo
 from flask_wtf import CSRFProtect
 from forms import RegistrationForm, LoginForm
@@ -12,6 +12,12 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 app.secret_key = 'secret_key'
+
+class ServiceForm(FlaskForm):
+    name = StringField('ชื่อ', validators=[DataRequired()])
+    address = StringField('ที่อยู่', validators=[DataRequired()])
+    accept_service = SelectField('คุณยินดีรับบริการนี้แล้วหรือไม่', choices=[('yes', 'ใช่'), ('no', 'ไม่')], validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -90,9 +96,71 @@ def About():
 def Features():
     return render_template("features.html")
 
-@app.route("/Features/Fish")
+@app.route("/Features/Fish", methods=['GET','POST'])
 def Fish():
-    return render_template("fish.html")
+    form = ServiceForm()
+    message = None
+    if form.validate_on_submit():
+        name = form.name.data
+        address = form.address.data
+        accept_service = form.accept_service.data
+        message = f'ชื่อ: {name}, ที่อยู่: {address}, ยินดีรับบริการ: {accept_service}'
+    return render_template('fish.html', form=form, message=message)
+
+@app.route("/Features/Cleaning", methods=['GET','POST'])
+def Cleaning():
+    form = ServiceForm()
+    message = None
+    if form.validate_on_submit():
+        name = form.name.data
+        address = form.address.data
+        accept_service = form.accept_service.data
+        message = f'ชื่อ: {name}, ที่อยู่: {address}, ยินดีรับบริการ: {accept_service}'
+    return render_template('cleaning.html', form=form, message=message)
+
+@app.route("/Features/Game", methods=['GET','POST'])
+def Game():
+    form = ServiceForm()
+    message = None
+    if form.validate_on_submit():
+        name = form.name.data
+        address = form.address.data
+        accept_service = form.accept_service.data
+        message = f'ชื่อ: {name}, ที่อยู่: {address}, ยินดีรับบริการ: {accept_service}'
+    return render_template('game.html', form=form, message=message)
+
+@app.route("/Features/Homework", methods=['GET','POST'])
+def Homework():
+    form = ServiceForm()
+    message = None
+    if form.validate_on_submit():
+        name = form.name.data
+        address = form.address.data
+        accept_service = form.accept_service.data
+        message = f'ชื่อ: {name}, ที่อยู่: {address}, ยินดีรับบริการ: {accept_service}'
+    return render_template('homework.html', form=form, message=message)
+
+@app.route("/Features/Taxi", methods=['GET','POST'])
+def Taxi():
+    form = ServiceForm()
+    message = None
+    if form.validate_on_submit():
+        name = form.name.data
+        address = form.address.data
+        accept_service = form.accept_service.data
+        message = f'ชื่อ: {name}, ที่อยู่: {address}, ยินดีรับบริการ: {accept_service}'
+    return render_template('taxi.html', form=form, message=message)
+
+@app.route("/Features/Isekai", methods=['GET','POST'])
+def Isekai():
+    form = ServiceForm()
+    message = None
+    if form.validate_on_submit():
+        name = form.name.data
+        address = form.address.data
+        accept_service = form.accept_service.data
+        message = f'ชื่อ: {name}, ที่อยู่: {address}, ยินดีรับบริการ: {accept_service}'
+    return render_template('isekai.html', form=form, message=message)
 
 @app.route("/Admin")
 def Admin():
