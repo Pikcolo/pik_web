@@ -42,31 +42,32 @@
         margin-bottom: 20px;
     }
     .grid-container {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr); 
-            gap: 10px;
-            margin-top: 10px; 
-            margin-left: 10px; 
-        }
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); 
+        grid-template-rows: repeat(3, 1fr); 
+        gap: 10px;
+        margin-top: 10px; 
+        margin-left: 10px; 
+    }
 
-        .grid-item {
-            padding: 20px;
-            text-align: center;
-            background-color: transparent; 
-            border: 1px solid #000000; 
-            border-radius: 10px; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+    .grid-item {
+        padding: 20px;
+        text-align: center;
+        background-color: transparent; 
+        border: 1px solid #000000; 
+        border-radius: 10px; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
-        .grid-item img {
-            max-width: 50px; 
-            height: auto; 
-            display: block; 
-            margin-bottom: 10px;
-        }
+    .grid-item img {
+        max-width: 50px; 
+        height: auto; 
+        display: block; 
+        margin-bottom: 10px;
+    }
 </style>
 <body style="color: rgb(0, 0, 0);">
 <div class="container">
@@ -77,19 +78,25 @@
         <img class="img" src="static/image/admin.jpg">
     </div>
     <div class="grid-container" style="margin-top: 30px;">
-        <div class="grid-item">
+    <div class="grid-item">
+        <a href="tel:091046xxxx">
             <img src="static/image/phone.png" alt="Image 1">
             <p>Phone : 091046xxxx</p>
-        </div>
-        <div class="grid-item">
+        </a>
+    </div>
+    <div class="grid-item">
+        <a href="https://www.instagram.com/pikcolo_/">
             <img src="static/image/ig.png" alt="Image 2">
             <p>Instragram : @pikcolo_</p>
-        </div>
-        <div class="grid-item">
+        </a>
+    </div>
+    <div class="grid-item">
+        <a href="https://www.facebook.com/profile.php?id=100010077757966&locale=th_TH">
             <img src="static/image/fb.png" alt="Image 3">
             <p>Facebook : Sirawit Noypa</p>
-        </div>
+        </a>
     </div>
+</div>
 </div>
 </body>
 {% endblock %}
