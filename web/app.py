@@ -5,6 +5,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo
 from flask_wtf import CSRFProtect
 from forms import RegistrationForm, LoginForm
+from werkzeug.security import generate_password_hash, check_password_hash
 import bcrypt
 
 app = Flask(__name__)
@@ -38,17 +39,17 @@ def register():
         email = form.email.data
         password = form.password.data
         confirm_password = form.confirm_password.data
-        
         if password != confirm_password:
-            return redirect(url_for('register'), error='Passwords do not match')
-        
+            flash('Passwords do not match. Please try again.', 'error')
+            return render_template('user/register.html', form=form) 
+
         new_user = User(name=name,email=email,password=password)
         db.session.add(new_user)
         db.session.commit()
         flash('Account created successfully! You can now login', 'success')
         return redirect(url_for('login'))
 
-    return render_template('user/register.html', form=form, error='Passwords do not match')
+    return render_template('user/register.html', form=form)
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -65,7 +66,7 @@ def login():
         else:
             flash('Invalid Email or Password', 'danger')
 
-    return render_template('user/login.html', form=form, error='Invalid Email or Password')
+    return render_template('user/login.html', form=form)
 
 @app.route('/dashboard')
 def dashboard():
