@@ -1,4 +1,47 @@
 {% extends "base.html" %}
 {% block title %}KeeKran{% endblock %}
 {% block content %}
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: rgb(0, 162, 78); 
+    }
+    h1{
+        padding-top: 50px;
+        font-family: Arial, sans-serif; 
+        font-weight: bold;
+    }
+    h2 {
+        padding-top: 20px;
+        padding-bottom: 30px;
+        font-family: Arial, sans-serif; 
+        font-weight: bold;
+    }
+    .img-container {
+        max-width: 300px;
+        max-height: 400px;
+        width: 100%;
+        height: 100%;
+        border-radius: 20px; 
+        overflow: hidden; 
+    }
+    .img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+<body style="color: white;">
+<div class="container">
+    <h1>Admin</h1>
+    <h2>PikCoLo</h2>
+    <div class="img-container">
+        <img class="img" src="static/image/admin.jpg">
+    </div>
+</div>
+</body>
 {% endblock %}
